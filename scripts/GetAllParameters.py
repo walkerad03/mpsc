@@ -36,8 +36,7 @@ def get_all_params(patientJSONDir: str, output_dir: str) -> None:
 
 
 if __name__ == "__main__":
-    os.chdir("/home/walkerdavis/projects/mpsc")
     patientJSONDir = "./data/raw"
-    output_dir = "./data/processed"
+    output_dir = "./data"
 
     get_all_params(patientJSONDir, output_dir)

@@ -11,10 +11,14 @@ PARSERS = {
     "3040901^Resp^LCHEROFS": generic_parser.parse,
     "3041001^SpO2^LCHEROFS": generic_parser.parse,
     "EnteralFeed": enteral_feed.parse,
+    "YearOfBirth": generic_parser.parse,
+    "Sex": generic_parser.parse,
+    "PEDIATRIC BIRTH WEIGHT (OZ)^PEDIATRIC BIRTH WEIGHT (OZ)": generic_parser.parse,
+    "PEDIATRIC GESTATION AGE (WEEKS)^PEDIATRIC GESTATION AGE (WEEKS)": generic_parser.parse,
 }
 
-# NOTE: Calculated Energy will need its own parser to handle TreatmentRoute
-# NOTE: Need to add demographics and fluids
+with open("resources/FluidIntakeRowIDs.txt", "r") as f:
+    FLUID_INTAKE_ROW_IDS = [line.strip() for line in f]
 
 
 def route_observation(

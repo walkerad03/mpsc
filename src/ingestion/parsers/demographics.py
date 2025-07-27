@@ -10,11 +10,14 @@ def parse(
         [
             {
                 "ID": patient_id,
-                "DateTime": start_time,
-                "OBX": param.get("Observation"),
-                "Value": param.get("Value"),
-                "Unit": param.get("Unit"),
-                "Text": param.get("Text"),
+                "DOB": None,
+                "GA": None,
+                "BW": None,
+                "Sex": None,
+                "DataStart": None,
+                "DataEnd": None,
+                "FluidStart": None,
+                "FluidEnd": None,
             }
         ]
     )
