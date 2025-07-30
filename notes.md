@@ -2,9 +2,9 @@
 
 - Calculated Energy will need its own parser to handle TreatmentRoute
 - Need to add demographics and fluids
-- For stool weight, aggregate over a single day / week as a sum
+- For stool weight, aggregate over a single day / week as a sum --- DONE
 - Calories in - calories used for maintenence = calories for growth
-- Add feature to tell the model which growth phase the child is in
+- Add feature to tell the model which growth phase the child is in --- DONE
 
 - instead of predicting growth, determine whether growth has failed.
     - figure out how to define growth failure
