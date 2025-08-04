@@ -1,3 +1,9 @@
+"""
+Creates a list of all Parameters found within the raw JSON patient data.
+These occurences are counted and saved as a CSV file within the `data/`
+directory.
+"""
+
 import os
 
 import src.hero_fsdb as hero_fsdb
