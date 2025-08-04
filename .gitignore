@@ -16,3 +16,4 @@ data/processed
 # Dotfiles
 .mypy_cache/
 .vscode/
+.ipynb_checkpoints/
