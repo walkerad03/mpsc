@@ -1,15 +1,15 @@
 import os
 
-import hero_fsdb
+import src.hero_fsdb as hero_fsdb
 import pandas as pd
 from tqdm import tqdm
 
 
-def calculate_height_obs(patientJSONDir: str, output_dir: str) -> None:
+def calculate_head_circum_obs(patientJSONDir: str, output_dir: str) -> None:
     outputList = list()
 
     with os.scandir(patientJSONDir) as it:
-        for inputFileName in tqdm(it, desc="Height Observations"):
+        for inputFileName in tqdm(it, desc="Head Circumference Observations"):
             if ".json" not in inputFileName.name:
                 continue
             if "T.json" in inputFileName.name:
@@ -20,7 +20,7 @@ def calculate_height_obs(patientJSONDir: str, output_dir: str) -> None:
 
             for ps in db.ParameterSets:
                 for p in ps.Parameters:
-                    if p.Observation == "3041101^Height^LCHEROFS":
+                    if p.Observation == "3041601^Head Circumference^LCHEROFS":
                         rowDict = {
                             "ID": inputFileName.name.split(".")[0],
                             "DateTime": ps.StartTime,
@@ -32,4 +32,4 @@ def calculate_height_obs(patientJSONDir: str, output_dir: str) -> None:
                         outputList.append(rowDict)
 
     outputDF = pd.DataFrame(outputList)
-    outputDF.to_csv(os.path.join(output_dir, "HeightObservations.csv"), index=False)
+    outputDF.to_csv(os.path.join(output_dir, "HeadCircumObservations.csv"), index=False)

@@ -1,11 +1,11 @@
 import os
 
-import hero_fsdb
+import src.hero_fsdb as hero_fsdb
 import pandas as pd
 from tqdm import tqdm
 
 
-def calculate_entral_feed_obs(patientJSONDir, output_dir) -> None:
+def calculate_entral_feed_obs(patientJSONDir: str, output_dir: str) -> None:
     labelCountDict = {}
 
     with os.scandir(patientJSONDir) as it:

@@ -1,13 +1,13 @@
 import datetime as dt
 import os
 
-import hero_fsdb
+import src.hero_fsdb as hero_fsdb
 import pandas as pd
 from tqdm import tqdm
 
 
 def calculate_demographics(
-    patientJSONDir: str, fluidIntakeRowIDs, output_dir: str
+    patientJSONDir: str, fluidIntakeRowIDs: list[str], output_dir: str
 ) -> None:
     outputList = list()
 

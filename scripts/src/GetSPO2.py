@@ -1,16 +1,15 @@
 import os
 
-import hero_fsdb
+import src.hero_fsdb as hero_fsdb
 import pandas as pd
 from tqdm import tqdm
-from typing import Optional, Union
 
 
-def calculate(patientJSONDir: str, output_dir: str) -> None:
-    outputList: list[dict[str, Optional[Union[str, int]]]] = list()
+def calculate_spo2_obs(patientJSONDir: str, output_dir: str) -> None:
+    outputList = list()
 
     with os.scandir(patientJSONDir) as it:
-        for inputFileName in tqdm(it, desc="Blood Pressure"):
+        for inputFileName in tqdm(it, desc="SPO2 Observations"):
             if ".json" not in inputFileName.name:
                 continue
             if "T.json" in inputFileName.name:
@@ -20,10 +19,10 @@ def calculate(patientJSONDir: str, output_dir: str) -> None:
             db.read_file()
 
             for ps in db.ParameterSets:
-                rowDict: dict[str, Optional[Union[str, int]]] = {}
+                rowDict = {}
                 saveThis = False
                 for p in ps.Parameters:
-                    if p.Observation == "3040501^BP^LCHEROFS":
+                    if p.Observation == "3041001^SpO2^LCHEROFS":
                         rowDict["ID"] = inputFileName.name.split(".")[0]
                         rowDict["DateTime"] = ps.StartTime
                         rowDict["OBX"] = p.Observation
@@ -37,13 +36,12 @@ def calculate(patientJSONDir: str, output_dir: str) -> None:
 
     outputDF = pd.DataFrame(outputList)
     outputDF.to_csv(
-        os.path.join(output_dir, "BPObservations.csv"), index=False
+        os.path.join(output_dir, "SPO2Obs.csv"), index=False
     )
-
 
 if __name__ == "__main__":
     os.chdir("/home/walkerdavis/projects/mpsc")
     patientJSONDir = "./data/raw"
     output_dir = "./data/processed"
 
-    calculate(patientJSONDir, output_dir)
+    calculate_spo2_obs(patientJSONDir, output_dir)

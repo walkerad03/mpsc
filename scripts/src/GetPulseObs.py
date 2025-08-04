@@ -1,15 +1,16 @@
 import os
+from typing import Optional, Union
 
-import hero_fsdb
 import pandas as pd
+import src.hero_fsdb as hero_fsdb
 from tqdm import tqdm
 
 
-def calculate_head_circum_obs(patientJSONDir: str, output_dir: str) -> None:
-    outputList = list()
+def calculate_pulse_obs(patientJSONDir: str, output_dir: str) -> None:
+    outputList: list[dict[str, Optional[Union[str, int]]]] = list()
 
     with os.scandir(patientJSONDir) as it:
-        for inputFileName in tqdm(it, desc="Head Circumference Observations"):
+        for inputFileName in tqdm(it, desc="Pulse Observations"):
             if ".json" not in inputFileName.name:
                 continue
             if "T.json" in inputFileName.name:
@@ -20,7 +21,7 @@ def calculate_head_circum_obs(patientJSONDir: str, output_dir: str) -> None:
 
             for ps in db.ParameterSets:
                 for p in ps.Parameters:
-                    if p.Observation == "3041601^Head Circumference^LCHEROFS":
+                    if p.Observation == "3040801^Pulse^LCHEROFS":
                         rowDict = {
                             "ID": inputFileName.name.split(".")[0],
                             "DateTime": ps.StartTime,
@@ -32,4 +33,4 @@ def calculate_head_circum_obs(patientJSONDir: str, output_dir: str) -> None:
                         outputList.append(rowDict)
 
     outputDF = pd.DataFrame(outputList)
-    outputDF.to_csv(os.path.join(output_dir, "HeadCircumObservations.csv"), index=False)
+    outputDF.to_csv(os.path.join(output_dir, "PulseObservations.csv"), index=False)
